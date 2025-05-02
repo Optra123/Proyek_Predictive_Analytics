@@ -102,26 +102,6 @@ Dataset ini terdiri dari 3276 entri dan 10 kolom, yang mencakup variabel-variabe
 
 ---
 
-### Distribusi Kelas Potability
-
-Distribusi jumlah air yang layak dan tidak layak untuk diminum digambarkan pada grafik berikut:
-
-![Distribusi Potability](https://github.com/Optra123/Proyek_Predictive_Analytics/blob/main/Gambar/Perbandingan%20potability.png)
-
-> Terdapat ketidakseimbangan antara kelas air layak dan tidak layak, di mana kelas "tidak layak" memiliki jumlah data yang lebih besar.
-
----
-
-### Korelasi `ph` dengan Fitur Lainnya
-
-Visualisasi korelasi fitur `ph` dengan fitur lainnya ditunjukkan pada grafik berikut:
-
-![Korelasi dengan ph](https://github.com/Optra123/Proyek_Predictive_Analytics/blob/main/Gambar/korelasi%20ph%20dengan%20fitur%20lainnya.png)
-
-> Dapat dilihat bahwa fitur `ph` memiliki korelasi yang relatif lemah terhadap sebagian besar fitur lainnya, sehingga pemilihan fitur lanjutan perlu dilakukan dengan metode tambahan.
-
----
-
 ### Data yang Hilang
 
 Tabel berikut menunjukkan jumlah nilai hilang (missing values) pada setiap fitur:

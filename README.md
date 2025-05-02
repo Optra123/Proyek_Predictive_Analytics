@@ -66,7 +66,7 @@ Dataset yang digunakan dalam proyek ini adalah dataset **Water Potability** yang
 
 🔗 [Water Potability Dataset - Kaggle](https://www.kaggle.com/datasets/adityakadiwal/water-potability)
 
-Dataset ini terdiri dari 10 kolom dan lebih dari 3000 baris data observasi. Setiap baris merepresentasikan hasil uji kualitas air dari suatu sampel, dengan status apakah air tersebut layak diminum (`Potability = 1`) atau tidak (`Potability = 0`), berdasarkan sejumlah parameter fisik dan kimia.
+Dataset ini terdiri dari 3276 entri dan 10 kolom, yang mencakup variabel-variabel kimia dan fisika air serta label `Potability` sebagai indikator kelayakan konsumsi.
 
 ---
 
@@ -85,37 +85,58 @@ Dataset ini terdiri dari 10 kolom dan lebih dari 3000 baris data observasi. Seti
 
 ---
 
-### Exploratory Data Analysis (EDA)
+### Ringkasan Statistik Deskriptif
 
-Beberapa langkah awal untuk memahami distribusi data dilakukan dengan visualisasi dan statistik deskriptif sebagai berikut:
-
-#### 1. Distribusi Kelas Potability
-
-![Potability Distribution](https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/water-potability-distribution.png)
-
-> Terdapat ketidakseimbangan kelas, di mana lebih banyak sampel air yang **tidak layak** dibanding yang layak dikonsumsi.
-
-#### 2. Korelasi Antar Fitur
-
-Heatmap korelasi membantu dalam memahami hubungan antar variabel:
-
-![Heatmap Korelasi](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*KMoO63uVu7BLJ2t1os9aOQ.png)
-
-> Terlihat bahwa tidak semua fitur memiliki korelasi kuat satu sama lain, sehingga dibutuhkan pemilihan fitur secara lebih selektif saat pemodelan.
-
-#### 3. Ringkasan Statistik Deskriptif
-
-| Fitur            | Min    | Max     | Mean   | Std     |
-|------------------|--------|---------|--------|---------|
-| pH               | 0.0    | 14.0    | ~7.0   | ~1.1    |
-| Hardness         | ~70    | ~320    | ~195   | ~32     |
-| Solids           | ~300   | ~61000  | ~22000 | ~8600   |
-| Chloramines      | ~0.3   | ~14.0   | ~5.1   | ~1.6    |
-| Trihalomethanes  | ~0.7   | ~124.0  | ~66.4  | ~17.5   |
-
-> Nilai-nilai ekstrim dan variasi yang besar pada fitur tertentu menunjukkan perlunya standarisasi dan penanganan nilai null sebelum pemodelan.
+| Fitur              | Count     | Mean     | Std Dev   | Min       | 25%       | 50%       | 75%       | Max         |
+|--------------------|-----------|----------|-----------|-----------|-----------|-----------|-----------|-------------|
+| ph                 | 2785.00   | 7.08     | 1.59      | 0.00      | 6.09      | 7.04      | 8.06      | 14.00       |
+| Hardness           | 3276.00   | 196.37   | 32.88     | 47.43     | 176.85    | 196.97    | 216.67    | 323.12      |
+| Solids             | 3276.00   | 22014.09 | 8768.57   | 320.94    | 15666.69  | 20927.83  | 27332.76  | 61227.20    |
+| Chloramines        | 3276.00   | 7.12     | 1.58      | 0.35      | 6.13      | 7.13      | 8.11      | 13.13       |
+| Sulfate            | 2495.00   | 333.78   | 41.42     | 129.00    | 307.70    | 333.07    | 359.95    | 481.03      |
+| Conductivity       | 3276.00   | 426.21   | 80.82     | 181.48    | 365.73    | 421.88    | 481.79    | 753.34      |
+| Organic_carbon     | 3276.00   | 14.28    | 3.31      | 2.20      | 12.07     | 14.22     | 16.56     | 28.30       |
+| Trihalomethanes    | 3114.00   | 66.40    | 16.18     | 0.74      | 55.84     | 66.62     | 77.34     | 124.00      |
+| Turbidity          | 3276.00   | 3.97     | 0.78      | 1.45      | 3.44      | 3.96      | 4.50      | 6.74        |
+| Potability         | 3276.00   | 0.39     | 0.49      | 0.00      | 0.00      | 0.00      | 1.00      | 1.00        |
 
 ---
+
+### Distribusi Kelas Potability
+
+Distribusi jumlah air yang layak dan tidak layak untuk diminum digambarkan pada grafik berikut:
+
+![Distribusi Potability](<masukkan_link_gambar_kamu_di_sini>)
+
+> Terdapat ketidakseimbangan antara kelas air layak dan tidak layak, di mana kelas "tidak layak" memiliki jumlah data yang lebih besar.
+
+---
+
+### Korelasi `ph` dengan Fitur Lainnya
+
+Visualisasi korelasi fitur `ph` dengan fitur lainnya ditunjukkan pada grafik berikut:
+
+![Korelasi dengan ph](<masukkan_link_gambar_kamu_di_sini>)
+
+> Dapat dilihat bahwa fitur `ph` memiliki korelasi yang relatif lemah terhadap sebagian besar fitur lainnya, sehingga pemilihan fitur lanjutan perlu dilakukan dengan metode tambahan.
+
+---
+
+### Data yang Hilang
+
+Tabel berikut menunjukkan jumlah nilai hilang (missing values) pada setiap fitur:
+
+| Fitur             | Missing Values |
+|-------------------|----------------|
+| ph                | 491            |
+| Sulfate           | 781            |
+| Trihalomethanes   | 162            |
+| (Fitur lainnya)   | 0              |
+
+> Terdapat tiga fitur dengan missing values cukup signifikan: `ph`, `Sulfate`, dan `Trihalomethanes`. Penanganan data hilang akan dilakukan pada tahap Data Preparation, baik dengan teknik imputasi seperti median/mean imputation atau dengan pendekatan prediktif.
+
+---
+
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.

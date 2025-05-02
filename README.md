@@ -62,17 +62,60 @@ Untuk memahami secara menyeluruh permasalahan yang ingin diselesaikan dalam proy
 ---
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+Dataset yang digunakan dalam proyek ini adalah dataset **Water Potability** yang tersedia di platform Kaggle. Dataset ini berisi sampel data kualitas air dan indikator kelayakan air untuk dikonsumsi. Dataset ini dapat diakses melalui tautan berikut:
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+🔗 [Water Potability Dataset - Kaggle](https://www.kaggle.com/datasets/adityakadiwal/water-potability)
 
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+Dataset ini terdiri dari 10 kolom dan lebih dari 3000 baris data observasi. Setiap baris merepresentasikan hasil uji kualitas air dari suatu sampel, dengan status apakah air tersebut layak diminum (`Potability = 1`) atau tidak (`Potability = 0`), berdasarkan sejumlah parameter fisik dan kimia.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+---
+
+### Variabel-variabel pada Water Potability Dataset adalah sebagai berikut:
+
+- **ph**: Mengukur tingkat keasaman atau kebasaan air. Nilai ideal untuk air minum berkisar antara 6.5 - 8.5.
+- **Hardness**: Mengukur jumlah kalsium dan magnesium yang terlarut dalam air. Hardness tinggi dapat mempengaruhi rasa dan menimbulkan kerak.
+- **Solids**: Jumlah total zat padat terlarut dalam air (Total Dissolved Solids atau TDS). Nilai tinggi dapat mengindikasikan pencemaran.
+- **Chloramines**: Kandungan kloramin dalam air, yang digunakan sebagai disinfektan. Kandungan terlalu tinggi dapat berdampak buruk bagi kesehatan.
+- **Sulfate**: Ion sulfat yang jika berlebih dapat menyebabkan masalah kesehatan, seperti gangguan pencernaan.
+- **Conductivity**: Kemampuan air dalam menghantarkan listrik, yang menunjukkan jumlah ion terlarut (berkorelasi dengan TDS).
+- **Organic_carbon**: Kandungan karbon organik dalam air. Nilai tinggi dapat mengindikasikan adanya kontaminasi bahan organik.
+- **Trihalomethanes**: Senyawa kimia hasil reaksi klorin dengan bahan organik; bersifat karsinogenik bila dikonsumsi dalam jangka panjang.
+- **Turbidity**: Tingkat kekeruhan air. Air keruh sering kali mengandung partikel yang bisa mengandung mikroorganisme patogen.
+- **Potability**: Label target. Nilai `1` berarti air layak minum, sedangkan `0` berarti tidak layak.
+
+---
+
+### Exploratory Data Analysis (EDA)
+
+Beberapa langkah awal untuk memahami distribusi data dilakukan dengan visualisasi dan statistik deskriptif sebagai berikut:
+
+#### 1. Distribusi Kelas Potability
+
+![Potability Distribution](https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/water-potability-distribution.png)
+
+> Terdapat ketidakseimbangan kelas, di mana lebih banyak sampel air yang **tidak layak** dibanding yang layak dikonsumsi.
+
+#### 2. Korelasi Antar Fitur
+
+Heatmap korelasi membantu dalam memahami hubungan antar variabel:
+
+![Heatmap Korelasi](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*KMoO63uVu7BLJ2t1os9aOQ.png)
+
+> Terlihat bahwa tidak semua fitur memiliki korelasi kuat satu sama lain, sehingga dibutuhkan pemilihan fitur secara lebih selektif saat pemodelan.
+
+#### 3. Ringkasan Statistik Deskriptif
+
+| Fitur            | Min    | Max     | Mean   | Std     |
+|------------------|--------|---------|--------|---------|
+| pH               | 0.0    | 14.0    | ~7.0   | ~1.1    |
+| Hardness         | ~70    | ~320    | ~195   | ~32     |
+| Solids           | ~300   | ~61000  | ~22000 | ~8600   |
+| Chloramines      | ~0.3   | ~14.0   | ~5.1   | ~1.6    |
+| Trihalomethanes  | ~0.7   | ~124.0  | ~66.4  | ~17.5   |
+
+> Nilai-nilai ekstrim dan variasi yang besar pada fitur tertentu menunjukkan perlunya standarisasi dan penanganan nilai null sebelum pemodelan.
+
+---
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.

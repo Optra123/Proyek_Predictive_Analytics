@@ -169,7 +169,20 @@ Setelah dilakukan standardisasi, fitur-fitur numerik memiliki nilai rata-rata me
 
 ---
 
-Dengan dua tahapan penting ini — imputasi nilai hilang dan standarisasi fitur — dataset kini telah bersih, konsisten, dan siap digunakan pada tahap selanjutnya yaitu **modeling**.
+### 3. Split Dataset (Pembagian Data)
+Setelah data dibersihkan dan distandarisasi, langkah selanjutnya adalah membagi dataset menjadi dua bagian: data latih (training set) dan data uji (testing set). Pembagian ini bertujuan untuk:
+
+- Melatih model pada sebagian data.
+
+- Menguji performa model pada data yang belum pernah dilihat sebelumnya.
+
+- Menghindari overfitting.
+
+Pembagian dilakukan dengan rasio 80% untuk data latih dan 20% untuk data uji, serta menggunakan parameter stratify untuk menjaga proporsi kelas Potability.
+
+---
+
+Dengan tiga tahapan penting ini — imputasi nilai hilang, standarisasi fitur, dan split dataset, dataset kini telah bersih, konsisten, dan siap digunakan pada tahap selanjutnya yaitu **modeling**.
 
 
 
